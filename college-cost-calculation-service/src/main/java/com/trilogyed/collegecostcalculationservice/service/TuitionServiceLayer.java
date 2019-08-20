@@ -23,20 +23,22 @@ public class TuitionServiceLayer {
     }
 
     public TuitionViewModel getTuition(String id, String major, boolean inState, boolean undergraduate){
+        //builds the object
         TuitionViewModel tvm = new TuitionViewModel();
         tvm.setStudentId(id);
         tvm.setMajor(major);
         tvm.setInState(inState);
         tvm.setUnderGraduate(undergraduate);
-
+        //get the tuition
         tvm.setTuition(tuitionService.getTuition(major, inState, undergraduate).getTuition());
+        //gets the financial aid
         tvm.setFinancialAid(finAidService.getFinancialAidByStudent(id).getAidAmount());
 
         BigDecimal a =
                 tvm.getTuition();
         BigDecimal b =
                 tvm.getFinancialAid();
-
+        //calculates the final cost
         tvm.setCost(a.subtract(b));
         return tvm;
         //return buildTvm(tvm);

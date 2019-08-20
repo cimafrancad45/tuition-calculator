@@ -65,6 +65,7 @@ public class TuitionServiceLayerTest {
 //        doReturn(tuition).when(tuitionService).getTuition("BS", false, false);
 //        doReturn(financialAid).when(finAidService).getFinancialAidByStudent("12");
 //    }
+    //mocks the feign services
     @Mock
     FinAidService finAidClient;
 
