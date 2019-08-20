@@ -6,14 +6,21 @@ import com.trilogyed.collegecostcalculationservice.model.FinancialAid;
 import com.trilogyed.collegecostcalculationservice.model.Tuition;
 import com.trilogyed.collegecostcalculationservice.viewmodel.TuitionViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+@Component
 public class TuitionServiceLayer {
     @Autowired
     FinAidService finAidService;
     @Autowired
     TuitionService tuitionService;
+
+    public TuitionServiceLayer(FinAidService finAidService, TuitionService tuitionService) {
+        this.finAidService = finAidService;
+        this.tuitionService = tuitionService;
+    }
 
     public TuitionViewModel getTuition(TuitionViewModel tvm){
         return buildTvm(tvm);
