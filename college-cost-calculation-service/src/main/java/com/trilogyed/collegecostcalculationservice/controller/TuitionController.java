@@ -17,11 +17,6 @@ public class TuitionController {
     @RequestMapping(name = "cost/{studentId}/{major}?inState=[true|false]&undergraduate=[true|false]", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public TuitionViewModel getTuition(@PathVariable String studentId, @PathVariable String major, @QueryMap boolean inState, @QueryMap boolean undergraduate){
-        TuitionViewModel viewModel = new TuitionViewModel();
-        viewModel.setStudentId(studentId);
-        viewModel.setMajor(major);
-        viewModel.setInState(inState);
-        viewModel.setUnderGraduate(undergraduate);
-        return serviceLayer.getTuition(viewModel);
+        return serviceLayer.getTuition(studentId, major, inState, undergraduate);
     }
 }

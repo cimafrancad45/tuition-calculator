@@ -22,17 +22,15 @@ public class TuitionServiceLayer {
         this.tuitionService = tuitionService;
     }
 
-    public TuitionViewModel getTuition(TuitionViewModel tvm){
-        return buildTvm(tvm);
-    }
+    public TuitionViewModel getTuition(String id, String major, boolean inState, boolean undergraduate){
+        TuitionViewModel tvm = new TuitionViewModel();
+        tvm.setStudentId(id);
+        tvm.setMajor(major);
+        tvm.setInState(inState);
+        tvm.setUnderGraduate(undergraduate);
 
-
-    private TuitionViewModel buildTvm(TuitionViewModel tvm){
-        Tuition tuition = tuitionService.getTuition(tvm.getMajor(), tvm.isInState(), tvm.isUnderGraduate());
-        FinancialAid financialAid = finAidService.getFinancialAidByStudent(tvm.getStudentId());
-
-        tvm.setTuition(tuition.getTuition());
-        tvm.setFinancialAid(financialAid.getAidAmount());
+        tvm.setTuition(tuitionService.getTuition(major, inState, undergraduate).getTuition());
+        tvm.setFinancialAid(finAidService.getFinancialAidByStudent(id).getAidAmount());
 
         BigDecimal a =
                 tvm.getTuition();
@@ -40,11 +38,26 @@ public class TuitionServiceLayer {
                 tvm.getFinancialAid();
 
         tvm.setCost(a.subtract(b));
-
-
-
-
-        return null;
+        return tvm;
+        //return buildTvm(tvm);
     }
+
+
+//    private TuitionViewModel buildTvm(TuitionViewModel tvm){
+//        Tuition tuition = tuitionService.getTuition(tvm.getMajor(), tvm.isInState(), tvm.isUnderGraduate());
+//        FinancialAid financialAid = finAidService.getFinancialAidByStudent(tvm.getStudentId());
+//
+//        tvm.setTuition(tuition.getTuition());
+//        tvm.setFinancialAid(financialAid.getAidAmount());
+//
+//        BigDecimal a =
+//                tvm.getTuition();
+//        BigDecimal b =
+//                tvm.getFinancialAid();
+//
+//        tvm.setCost(a.subtract(b));
+//
+//        return tvm;
+//    }
 
 }
